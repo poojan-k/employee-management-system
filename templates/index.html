@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 250px;
+        }
+
+        .search-box button {
+            background-color: green;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .edit {
+            background-color: green;
+        }
+
+        .delete {
+            background-color: red;
+        }
+
+        .logout {
+            float: right;
+            background: red;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Logout Button -->
+    <a href="/logout" class="logout">Logout</a>
+
+    <h2>Employee Management System</h2>
+
+    <!-- Add Employee Form -->
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <input type="text" name="role" placeholder="Enter Role" required>
+        <input type="number" name="salary" placeholder="Enter Salary" required>
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <!-- Search -->
+    <div class="search-box">
+        <form method="POST">
+            <input type="text" name="search" placeholder="Search employee by name">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Table -->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+
+        {% if employees %}
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp[1] }}</td>
+                <td>{{ emp[2] }}</td>
+                <td>{{ emp[3] }}</td>
+                <td>
+                    <a href="/edit/{{ emp[0] }}" class="action-btn edit">Edit</a>
+                    <a href="/delete/{{ emp[0] }}" class="action-btn delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No employees found</td>
+            </tr>
+        {% endif %}
+
+    </table>
+
+</div>
+
+</body>
+</html>
